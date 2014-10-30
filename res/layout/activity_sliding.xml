@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/slidebg"
+    android:id="@+id/sliderbarcontainer"
+    android:gravity="center" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/sliderbaruserInfo"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="@string/userInformation"
+            android:textColor="#FFFFFFFF" />
+
+        <Button
+            android:id="@+id/sliderbarrecModel"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sliderbaruserInfo"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="@string/recmodel"
+            android:textColor="#FFFFFFFF" />
+
+        <Button
+            android:id="@+id/sliderbarcheckModel"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sliderbarrecModel"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="@string/checkmodel"
+            android:textColor="#FFFFFFFF" />
+
+        <Button
+            android:id="@+id/sliderbartechPicture"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sliderbarcheckModel"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="@string/tech"
+            android:textColor="#FFFFFFFF" />
+        
+        <Switch
+	        android:id="@+id/sliderbarautoUpload"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/sliderbartechPicture"
+	        android:layout_marginTop="10dp"
+	        android:singleLine="true"
+	        android:text="@string/autoupload" 
+	        android:textColor="#FFFFFFFF"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/sliderbartextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/version"
+        android:textColor="#ffffffff" />
+
+
+
+</RelativeLayout>

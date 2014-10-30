@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/record" >
+
+    <TextView
+        android:id="@+id/recContext"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/tips" />
+
+        <RelativeLayout
+            android:id="@+id/recGridView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" 
+                android:layout_margin="5dp">
+
+                <Button
+                    android:id="@+id/recCtrlButton"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rec_button_bg"
+                    android:text="@string/start"
+                    android:textColor="#ffffffff" />
+
+                <Button
+                    android:id="@+id/jumpOutButton"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rec_button_bg"
+                    android:text="@string/jumpOut"
+                    android:textColor="#ffffffff" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout1"
+                android:orientation="horizontal" 
+                android:layout_margin="5dp">
+
+                <Button
+                    android:id="@+id/replayButton"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rec_button_bg"
+                    android:text="@string/replay"
+                    android:textColor="#ffffffff" />
+
+                <Button
+                    android:id="@+id/deleteButton"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rec_button_bg"
+                    android:text="@string/delete"
+                    android:textColor="#ffffffff" />
+            </LinearLayout>
+        </RelativeLayout>
+   
+</RelativeLayout>
