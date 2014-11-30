@@ -129,10 +129,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f050000;
-        public static final int activity_vertical_margin=0x7f050001;
-        public static final int slidingBehindOffset=0x7f050003;
-        public static final int slidingShadownwidth=0x7f050002;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
+        public static final int slidingBehindOffset=0x7f060003;
+        public static final int slidingShadownwidth=0x7f060002;
     }
     public static final class drawable {
         public static final int button_selector=0x7f020000;
@@ -155,43 +155,43 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int textview_selector=0x7f020011;
     }
     public static final class id {
-        public static final int action_settings=0x7f040024;
-        public static final int cannotLogin=0x7f04000a;
-        public static final int container=0x7f040005;
-        public static final int deleteButton=0x7f040022;
-        public static final int fullscreen=0x7f040003;
-        public static final int jumpOutButton=0x7f04001f;
-        public static final int left=0x7f040000;
-        public static final int linearLayout1=0x7f04001d;
-        public static final int linearLayout2=0x7f040020;
-        public static final int loginButton=0x7f040008;
-        public static final int loginOutlineButton=0x7f040009;
-        public static final int mainautoUpload=0x7f040011;
-        public static final int maincheckModel=0x7f04000f;
-        public static final int maincontainer=0x7f04000c;
-        public static final int mainrecModel=0x7f04000e;
-        public static final int maintechPicture=0x7f040010;
-        public static final int maintextView1=0x7f040012;
-        public static final int mainuserInfo=0x7f04000d;
-        public static final int margin=0x7f040002;
-        public static final int newregist=0x7f04000b;
-        public static final int passwd=0x7f040007;
-        public static final int recContext=0x7f04001b;
-        public static final int recCtrlButton=0x7f04001e;
-        public static final int recGridView=0x7f04001c;
-        public static final int replayButton=0x7f040021;
-        public static final int right=0x7f040001;
-        public static final int selected_view=0x7f040004;
-        public static final int sliderbarautoUpload=0x7f040018;
-        public static final int sliderbarcheckModel=0x7f040016;
-        public static final int sliderbarcontainer=0x7f040013;
-        public static final int sliderbarrecModel=0x7f040015;
-        public static final int sliderbartechPicture=0x7f040017;
-        public static final int sliderbartextView1=0x7f040019;
-        public static final int sliderbaruserInfo=0x7f040014;
-        public static final int slidingmenumain=0x7f040023;
-        public static final int userName=0x7f040006;
-        public static final int webview=0x7f04001a;
+        public static final int action_settings=0x7f050024;
+        public static final int cannotLogin=0x7f05000a;
+        public static final int container=0x7f050005;
+        public static final int deleteButton=0x7f050022;
+        public static final int fullscreen=0x7f050003;
+        public static final int jumpOutButton=0x7f05001f;
+        public static final int left=0x7f050000;
+        public static final int linearLayout1=0x7f05001d;
+        public static final int linearLayout2=0x7f050020;
+        public static final int loginButton=0x7f050008;
+        public static final int loginOutlineButton=0x7f050009;
+        public static final int mainautoUpload=0x7f050012;
+        public static final int maincheckModel=0x7f05000f;
+        public static final int maincontainer=0x7f05000c;
+        public static final int mainquitLogin=0x7f050011;
+        public static final int mainrecModel=0x7f05000e;
+        public static final int maintechPicture=0x7f050010;
+        public static final int mainuserInfo=0x7f05000d;
+        public static final int margin=0x7f050002;
+        public static final int newregist=0x7f05000b;
+        public static final int passwd=0x7f050007;
+        public static final int recContext=0x7f05001b;
+        public static final int recCtrlButton=0x7f05001e;
+        public static final int recGridView=0x7f05001c;
+        public static final int replayButton=0x7f050021;
+        public static final int right=0x7f050001;
+        public static final int selected_view=0x7f050004;
+        public static final int sliderbarautoUpload=0x7f050019;
+        public static final int sliderbarcheckModel=0x7f050016;
+        public static final int sliderbarcontainer=0x7f050013;
+        public static final int sliderbarquitLogin=0x7f050018;
+        public static final int sliderbarrecModel=0x7f050015;
+        public static final int sliderbartechPicture=0x7f050017;
+        public static final int sliderbaruserInfo=0x7f050014;
+        public static final int slidingmenumain=0x7f050023;
+        public static final int userName=0x7f050006;
+        public static final int webview=0x7f05001a;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
@@ -205,44 +205,49 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int slidingmenumain=0x7f030008;
     }
     public static final class menu {
-        public static final int checkout=0x7f080000;
-        public static final int login=0x7f080001;
-        public static final int main=0x7f080002;
-        public static final int record=0x7f080003;
-        public static final int teach=0x7f080004;
-        public static final int userinfo=0x7f080005;
-        public static final int web=0x7f080006;
+        public static final int checkout=0x7f090000;
+        public static final int login=0x7f090001;
+        public static final int main=0x7f090002;
+        public static final int record=0x7f090003;
+        public static final int teach=0x7f090004;
+        public static final int userinfo=0x7f090005;
+        public static final int web=0x7f090006;
+    }
+    public static final class raw {
+        public static final int onrelease=0x7f040000;
+        public static final int ontouch=0x7f040001;
     }
     public static final class string {
-        public static final int action_settings=0x7f060002;
-        public static final int app_name=0x7f060000;
-        public static final int autoupload=0x7f060008;
-        public static final int checkmodel=0x7f060007;
-        public static final int checkoutcontext=0x7f060017;
-        public static final int delete=0x7f060016;
-        public static final int hello_world=0x7f06000f;
-        public static final int jumpOut=0x7f060014;
-        public static final int logerror=0x7f06000a;
-        public static final int newuser=0x7f06000d;
-        public static final int playrec=0x7f060018;
-        public static final int pswd=0x7f06000b;
-        public static final int quitApp=0x7f06001a;
-        public static final int recmodel=0x7f060006;
-        public static final int replay=0x7f060015;
-        public static final int start=0x7f060013;
-        public static final int tech=0x7f060004;
-        public static final int tips=0x7f060019;
-        public static final int title_activity_checkout_fragment=0x7f060010;
-        public static final int title_activity_login=0x7f060009;
-        public static final int title_activity_record=0x7f06000e;
-        public static final int title_activity_teach_fragment=0x7f060012;
-        public static final int title_activity_userinfo_fragment=0x7f060011;
-        public static final int title_activity_web=0x7f06001c;
-        public static final int userInformation=0x7f060003;
-        public static final int userOutlinelogin=0x7f06001b;
-        public static final int userlogin=0x7f060001;
-        public static final int username=0x7f06000c;
-        public static final int version=0x7f060005;
+        public static final int action_settings=0x7f070002;
+        public static final int app_name=0x7f070000;
+        public static final int autoupload=0x7f070008;
+        public static final int checkmodel=0x7f070007;
+        public static final int checkoutcontext=0x7f070017;
+        public static final int delete=0x7f070016;
+        public static final int hello_world=0x7f07000f;
+        public static final int jumpOut=0x7f070014;
+        public static final int logerror=0x7f07000a;
+        public static final int newuser=0x7f07000d;
+        public static final int playrec=0x7f070018;
+        public static final int pswd=0x7f07000b;
+        public static final int quit=0x7f07001d;
+        public static final int quitApp=0x7f07001a;
+        public static final int recmodel=0x7f070006;
+        public static final int replay=0x7f070015;
+        public static final int start=0x7f070013;
+        public static final int tech=0x7f070004;
+        public static final int tips=0x7f070019;
+        public static final int title_activity_checkout_fragment=0x7f070010;
+        public static final int title_activity_login=0x7f070009;
+        public static final int title_activity_record=0x7f07000e;
+        public static final int title_activity_teach_fragment=0x7f070012;
+        public static final int title_activity_userinfo_fragment=0x7f070011;
+        public static final int title_activity_web=0x7f07001c;
+        public static final int userInformation=0x7f070003;
+        public static final int userOutlinelogin=0x7f07001b;
+        public static final int userlogin=0x7f070001;
+        public static final int username=0x7f07000c;
+        public static final int version=0x7f070005;
     }
     public static final class style {
         /** 
@@ -266,11 +271,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
     }
     public static final class styleable {
         /** Attributes that can be used with a SlidingMenu.

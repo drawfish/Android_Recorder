@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 //登录
 public class LoginActivity extends ButtonEventHandler {
 	private final int LOGINRESULT=0x01;
@@ -24,10 +23,14 @@ public class LoginActivity extends ButtonEventHandler {
 	private Boolean loginresult=false;
 	private String username=null;
 	private String password=null;
+	private AppAskForLogin askLogin=null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		 this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+	     this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+	                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_login);
 		init();
 	}
@@ -86,7 +89,10 @@ public class LoginActivity extends ButtonEventHandler {
 		}
 		else 
 		{
-			new ToastShow(this, "用户名或密码错误");
+			if(askLogin.ServerProblem)
+				new ToastShow(this, "服务器无响应，请离线登录");
+			else 
+				new ToastShow(this, "用户名或密码错误");
 		}
 	}
 	
@@ -96,7 +102,7 @@ public class LoginActivity extends ButtonEventHandler {
 		public void run() {
 			// TODO Auto-generated method stub
 			super.run();
-			AppLoginServer askLogin=new AppLoginServer(username, password);
+			askLogin=new AppAskForLogin(username, password);
 			try 
 			{
 				loginresult=askLogin.login2Server();
@@ -124,14 +130,14 @@ public class LoginActivity extends ButtonEventHandler {
 	{
 		Intent jumpToWebview=new Intent();
 		jumpToWebview.setClass(LoginActivity.this, WebActivity.class);
-		jumpToWebview.putExtra("webPageUrl", "http://116.57.86.142/login/ForgetPasswd/");
+		jumpToWebview.putExtra("webPageUrl", "https://116.57.86.142/login/ForgetPasswd/");
 		startActivity(jumpToWebview);
 	}
 	public void registWebView()
 	{
 		Intent jumpToWebview=new Intent();
 		jumpToWebview.setClass(LoginActivity.this, WebActivity.class);
-		jumpToWebview.putExtra("webPageUrl", "http://116.57.86.142/login/regist/");
+		jumpToWebview.putExtra("webPageUrl", "https://116.57.86.142/login/regist/");
 		startActivity(jumpToWebview);
 	}
 }

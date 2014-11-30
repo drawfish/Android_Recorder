@@ -1,17 +1,19 @@
 package com.example.recordpro;
 
+import android.util.Log;
+
 public class UserDataClass {
 	
-	public class appBasis{
-		private String username;
-		private String password;
+	static public class appBasis{
+		static private String username;
+		static	private String password;
 		private String action;
-		public appBasis(){this.username="";this.password="";this.action="";}
-		public void setUsername(String user){this.username=user;}
-		public void setPassword(String passwd){this.password=passwd;}
+		public appBasis(){this.action="";}
+		public void setUsername(String user){username=user;}
+		public void setPassword(String passwd){password=passwd;}
 		public void setAction(String ac){this.action=ac;}
-		public String getUsername(){return this.username;}
-		public String getPassword(){return this.password;}
+		public String getUsername(){return username;}
+		public String getPassword(){return password;}
 		public String getAction(){return this.action;}
 	}
 	
@@ -27,9 +29,12 @@ public class UserDataClass {
 	
 	public class result extends serverBasis{
 		private Boolean Results;
-		public result() {this.Results=false;}
+		private String Reason;
+		public result() {this.Results=false;this.Reason="";}
 		public void setResult(Boolean result){this.Results=result;}
 		public Boolean getResult(){return this.Results;}
+		public void setReason(String reason){this.Reason=reason;}
+		public String getReason(){return this.Reason;}
 	}
 	
 	//用户登录服务器
@@ -52,19 +57,31 @@ public class UserDataClass {
 	}
 	//服务器返回录音文本
 	//需要检测信息：action=="sendoutContex"	username contexOfRecord
-	public class recordContex extends appBasis{
+	public class recordContex extends serverBasis{
 		private String contexOfRecord;
-		public recordContex(){this.contexOfRecord="";}
+		private String contexOfRecordID;
+		public recordContex(){this.contexOfRecord="";this.contexOfRecordID="0";}
 		public void setRecordContexContex(String Contex){this.contexOfRecord=Contex;}
 		public String getRecordContex(){return this.contexOfRecord;}
+		public void setRecordContexID(String ID){this.contexOfRecordID=ID;}
+		public String getRecordContexID(){return this.contexOfRecordID;}
 	}
 	//app上传录音内容
 	//需要提供信息：action="recordUpload" username password contexOfRecord recordWavdata
-	public class uploadRecord extends recordContex{
+	public class uploadRecord extends appBasis{
 		private byte[] recordWavdata;
-		public uploadRecord(){this.recordWavdata=null;this.setAction("recordUpload");}
+		private String recordContex;
+		public uploadRecord(String wavFileName,byte[] wavData)
+		{
+			this.recordWavdata=null;
+			this.setAction("recordUpload");
+			this.recordContex=wavFileName;
+			this.recordWavdata=wavData;
+		}
 		public byte[] getRecordWavData(){return this.recordWavdata;}
 		public void setRecordWavData(byte[] data){recordWavdata=null;recordWavdata=data;}
+		public void setRecordContex(String rContex){this.recordContex=rContex;}
+		public String getRecordContex(){return this.recordContex;}
 	}
 	//服务器返回上传结果
 	//需要检测内容：action="uploadResult" username contexOfRecord uploadResults==true
@@ -81,8 +98,9 @@ public class UserDataClass {
 	public class deleteRecord extends appBasis{
 		private String deleteContexOfRecord;
 		public deleteRecord(){this.deleteContexOfRecord="";this.setAction("delete");}
+		public deleteRecord(String deleteFilename){this.deleteContexOfRecord=deleteFilename;this.setAction("delete");}
 		public void setRecordContexContex(String Contex){this.deleteContexOfRecord=Contex;}
-		public String getRecordContex(){return this.deleteContexOfRecord;}
+		public String getdeleteContex(){return this.deleteContexOfRecord;}
 	}
 	//服务器返回删除结果
 	//需要检测的内容：action=“deleteResult” username deleteContexOfRecord deleteresult

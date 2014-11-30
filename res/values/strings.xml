@@ -10,16 +10,16 @@
     <string name="recmodel">录音模式</string>
     <string name="checkmodel">纠错模式</string>
     <string name="autoupload">自动上传</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">登录</string>
     <string name="logerror">无法登录</string>
     <string name="pswd">密码</string>
-    <string name="username">账号/手机/邮箱</string>
+    <string name="username">账号</string>
     <string name="newuser">新用户</string>
     <string name="title_activity_record">RecordActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_checkout_fragment">CheckoutFragment</string>
-    <string name="title_activity_userinfo_fragment">UserinfoFragment</string>
-    <string name="title_activity_teach_fragment">TeachFragment</string>
+    <string name="title_activity_checkout_fragment">纠错模式</string>
+    <string name="title_activity_userinfo_fragment">用户信息</string>
+    <string name="title_activity_teach_fragment">教程</string>
     <string name="start">开始</string>
     <string name="jumpOut">跳过</string>
     <string name="replay">回放</string>
@@ -30,5 +30,6 @@
     <string name="quitApp">退出</string>
     <string name="userOutlinelogin">离线登录</string>
     <string name="title_activity_web">WebActivity</string>
-
+	<string name="quit">退出登录</string>
+    
 </resources>

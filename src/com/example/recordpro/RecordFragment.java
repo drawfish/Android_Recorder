@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class RecordFragment extends Fragment {
+public class RecordFragment extends RecordButtonControler {
 
     public RecordFragment() {
     }
@@ -17,5 +17,21 @@ public class RecordFragment extends Fragment {
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_record, container, false);
         return rootView;
+    }
+    @Override
+    public void onStart() {
+    	// TODO Auto-generated method stub
+    	super.onStart();
+    	recordFragmentButtonInit();
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+    	// TODO Auto-generated method stub
+    	super.onCreate(savedInstanceState);
+    }
+    @Override
+    public void onDestroy() {
+    	// TODO Auto-generated method stub
+    	super.onDestroy();
     }
 }

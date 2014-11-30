@@ -10,7 +10,7 @@
 	    android:layout_centerHorizontal="true"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_marginTop="100dp">
+	    android:layout_marginTop="150dp">
 	    <EditText
 	        android:id="@+id/userName"
 	        android:layout_width="fill_parent"
@@ -40,7 +40,7 @@
 	    <Button
 	        android:id="@+id/loginButton"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="40dp"
 	        android:layout_marginTop="30dp"
 	        android:layout_marginLeft="40dp"
 	        android:layout_marginRight="40dp"
@@ -50,7 +50,7 @@
 	    <Button
 	        android:id="@+id/loginOutlineButton"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="40dp"
 	        android:layout_marginTop="20dp"
 	        android:layout_marginLeft="40dp"
 	        android:layout_marginRight="40dp"

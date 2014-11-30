@@ -1,30 +1,27 @@
 package com.example.recordpro;
 
 import java.io.ByteArrayInputStream;
-import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
-import android.util.Log;
 import android.util.Xml;
 
 
 //用于登录过程中的xml文件的类；
 
-public class AppLoginServer extends UserDataClass{
+public class AppAskForLogin extends UserDataClass{
 	private login loginfo;
-	public AppLoginServer(){loginfo=null;}
-	public AppLoginServer(String username,String password)
+	public boolean ServerProblem=false;
+	public AppAskForLogin(){loginfo=null;}
+	public AppAskForLogin(String username,String password)
 	{
 		loginfo=new login();
 		loginfo.setUsername(username);
-		loginfo.setPassword(password);
+		String MD5Pwd=MD5Generate.md5(password);
+		loginfo.setPassword(MD5Pwd);
 	}
 	private String loginInfoClass2Xml()
 	{
@@ -77,11 +74,15 @@ public class AppLoginServer extends UserDataClass{
 	            		parser.next(); 
 	            		if(parser.getText().equals("true"))
 	            		{
-	            			Log.i(null,"true");
 	            			login_result.setLoginResult(true);
 	            		}
 	            		else 
 	            			login_result.setLoginResult(false);
+	            	}
+	            	else if(xmlName.equals("resultReason"))
+	            	{
+	            		parser.next(); 
+	            		login_result.setReason(parser.getText());
 	            	}
 	                break;  
 	            case XmlPullParser.END_TAG:   
@@ -95,7 +96,7 @@ public class AppLoginServer extends UserDataClass{
 	}
 	public Boolean login2Server() throws Exception
 	{
-		if(loginfo==null||loginfo.getUsername().equals("")||loginfo.getUsername().equals(""))
+		if(loginfo==null||loginfo.getUsername().equals("")||loginfo.getPassword().equals(""))
 		{
 			return false;
 		}
@@ -105,31 +106,18 @@ public class AppLoginServer extends UserDataClass{
 			xml=loginInfoClass2Xml();
 			//Post it to the server and wait for the server;
 			HttpPostAndGet http=new HttpPostAndGet();
-			xml=http.HttpClientPOST("http://116.57.86.142/", xml.getBytes());
-			
-			
-			StringWriter os=new StringWriter();;
-	        XmlSerializer xmlte=Xml.newSerializer();
-	        try {
-	        	xmlte.setOutput(os);
-	        	xmlte.startDocument("utf-8", null);
-	        	xmlte.startTag(null, "serverAction");
-	        	xmlte.attribute(null, "action", "Auth");
-	        	xmlte.startTag(null, "username");
-	        	xmlte.text("duisheng");
-	        	xmlte.endTag(null, "username");
-	        	xmlte.startTag(null, "loginResult");
-	        	xmlte.text("true");
-	        	xmlte.endTag(null, "loginResult");
-	        	xmlte.endTag(null, "serverAction");
-	        	xmlte.endDocument();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			xml=http.HttpsClientPOST("https://116.57.86.142/AppPost/appLogin/login.php", xml.getBytes());
+			loginResult result=loginResultXml2Class(xml);
+			if(result.getAction().equals("NoRespond"))
+			{
+				ServerProblem=true;
+				return false;
 			}
-	        xml=os.toString();
-	        
-			return loginResultXml2Class(xml).getResult();
+			else 
+			{
+				ServerProblem=false;
+				return result.getResult();
+			}
 		}
 	}
 }

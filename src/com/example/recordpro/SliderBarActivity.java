@@ -14,6 +14,7 @@ public class SliderBarActivity extends ButtonEventHandler{
 	public Button sliderbarTechModel=null;
 	public Switch sliderbarAutoUpload=null;
 	public SlidingMenu sliderrbarMenu=null;
+	public Button sliderbarQuitLogin=null;
 	public void sliderbarInit()
 	{
 		sliderViewInit();
@@ -37,11 +38,17 @@ public class SliderBarActivity extends ButtonEventHandler{
 		sliderbarCheckModel=(Button)findViewById(R.id.sliderbarcheckModel);
 		sliderbarTechModel=(Button)findViewById(R.id.sliderbartechPicture);
 		sliderbarAutoUpload=(Switch)findViewById(R.id.sliderbarautoUpload);
+		sliderbarQuitLogin=(Button)findViewById(R.id.sliderbarquitLogin);
 		//On Click listener.
 		sliderbarUserInfo.setOnClickListener(new sliderBarButtonListener());
 		sliderbarRecModel.setOnClickListener(new sliderBarButtonListener());
 		sliderbarCheckModel.setOnClickListener(new sliderBarButtonListener());
 		sliderbarTechModel.setOnClickListener(new sliderBarButtonListener());
+		sliderbarQuitLogin.setOnClickListener(new sliderBarButtonListener());
+		if(new WifiModelOrNot(this).getWifiModel())
+			sliderbarAutoUpload.setChecked(true);
+		else 
+			sliderbarAutoUpload.setChecked(false);
 	}
 	class sliderBarButtonListener implements OnClickListener{
 
@@ -56,6 +63,8 @@ public class SliderBarActivity extends ButtonEventHandler{
 				checkModelButtonHandler();
 			if(v==sliderbarTechModel)
 				techModelButtonHandler();
+			if(v==sliderbarQuitLogin)
+				quitModelButtonHandler();
 		}
 		
 	}
