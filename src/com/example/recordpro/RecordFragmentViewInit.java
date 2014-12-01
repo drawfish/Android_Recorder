@@ -1,5 +1,7 @@
 package com.example.recordpro;
 
+import java.io.IOException;
+
 import com.example.recordpro.UserDataClass.recordContex;
 
 import android.app.Fragment;
@@ -106,6 +108,12 @@ public class RecordFragmentViewInit extends RecordBgService{
 				}
 				else if(buttonState==recState.isNext)
 				{
+					try {
+						sendRecord();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					getContexButtonHandler();
 					buttonState=recState.isStop;
 					recControlButton.setText("Í£Ö¹");
@@ -134,12 +142,14 @@ public class RecordFragmentViewInit extends RecordBgService{
 			};
 			if(v==recReplayButton)
 			{
-				recContex.setText(getCurrentAudio());
+				//recContex.setText(getCurrentAudio());
 				startPlay(getCurrentAudio());
 			};
 			if(v==recDeleteButton)
 			{
 				deleteCurrentAudio();
+				recReplayButton.setEnabled(false);
+				recDeleteButton.setEnabled(false);
 			};
 		}
 		
@@ -170,9 +180,39 @@ public class RecordFragmentViewInit extends RecordBgService{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		if(buttonState!=recState.isRec)
+		{
+			recContex.setText("");
+			buttonState=recState.isNext;
+			recControlButton.setText("¿ªÊ¼");
+		}
+		try {
+			if(getRecordState())
+				stopRecord(false);
+			else 
+				sendRecord();
+		} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		super.onPause();
+	}
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
+		if(!getRecordState())
+		{
+			try {
+				sendRecord();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		super.onDestroy();
 	}
 }
