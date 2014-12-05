@@ -1,5 +1,6 @@
 package com.example.recordpro;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 //µÇÂ¼
-public class LoginActivity extends ButtonEventHandler {
+public class LoginActivity extends MainActivityButtonEventHandler {
 	private final int LOGINRESULT=0x01;
 	private Button loginButton=null;
 	private TextView forgetPwdText=null;
@@ -61,7 +62,7 @@ public class LoginActivity extends ButtonEventHandler {
 		}
 		
 	}
-	class loginHandle extends Handler
+	@SuppressLint("HandlerLeak") class loginHandle extends Handler
 	{
 		@Override
 		public void handleMessage(Message msg)

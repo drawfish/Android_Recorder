@@ -3,7 +3,7 @@ package com.example.recordpro;
 import android.app.Activity;
 import android.content.Intent;
 
-public class ButtonEventHandler extends Activity {
+public class MainActivityButtonEventHandler extends Activity {
 	public void userInfoButtonHandler(){
 	};
 	public void recModelButtonHandler(){
@@ -13,13 +13,13 @@ public class ButtonEventHandler extends Activity {
 	};
 	public void checkModelButtonHandler(){
 		getFragmentManager().beginTransaction()
-        .add(R.id.maincontainer, new CheckoutFragment())
+        .add(R.id.maincontainer, new CheckFragment())
         .commit();
 	};
 	public void techModelButtonHandler(){};
 	public void quitModelButtonHandler(){
 		Intent jumptoLogin=new Intent();
-		jumptoLogin.setClass(ButtonEventHandler.this,LoginActivity.class);
+		jumptoLogin.setClass(MainActivityButtonEventHandler.this,LoginActivity.class);
 		startActivity(jumptoLogin);
 		finish();
 	};

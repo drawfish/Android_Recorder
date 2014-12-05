@@ -7,7 +7,7 @@ import android.widget.Switch;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-public class SliderBarActivity extends ButtonEventHandler{
+public class SliderBarActivity extends MainActivityButtonEventHandler{
 	public Button sliderbarUserInfo=null;
 	public Button sliderbarRecModel=null;
 	public Button sliderbarCheckModel=null;

@@ -24,7 +24,7 @@
     <string name="jumpOut">跳过</string>
     <string name="replay">回放</string>
     <string name="delete">撤销</string>
-    <string name="checkoutcontext">录音内容</string>
+    <string name="checkoutcontext">请在此纠正</string>
     <string name="playrec">播放录音</string>
     <string name="tips">请大声念出以下字词</string>
     <string name="quitApp">退出</string>

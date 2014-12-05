@@ -2,15 +2,14 @@ package com.example.recordpro;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.xml.sax.InputSource;
 
-import android.app.Fragment;
-import android.app.Service;
+
+import com.example.recordpro.UserDataClass.appBasis;
+
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
@@ -22,12 +21,9 @@ import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.text.format.Time;
-import android.util.Log;
-import android.view.inputmethod.InputBinding;
 
-public class RecordBgService extends PlayerBgService{
+@SuppressLint("SdCardPath") public class RecordBgService extends PlayerBgService{
 	// 音频获取源
 	private int audioSource = MediaRecorder.AudioSource.MIC;
 	// 设置音频采样率，44100是目前的标准，但是某些设备仍然支持22050，16000，11025
@@ -43,7 +39,7 @@ public class RecordBgService extends PlayerBgService{
 	//AudioName裸音频数据文件
 	private static final String AudioBufferName = "/sdcard/buffer.3gpp";
 	//NewAudioName可播放的音频文件
-	private static final String AudioPath = "/sdcard/scutRec/";
+	@SuppressLint("SdCardPath") private static final String AudioPath = "/sdcard/scutRec/";
 	private static final String CurrentAdioPath=AudioPath+"CurrentRec/";
 	private String AudioName=CurrentAdioPath+"CurrentAudio.wav";
 	private String AudioSendName=null;
@@ -52,7 +48,7 @@ public class RecordBgService extends PlayerBgService{
 	private AudioRecord audioRecord;
 	static public String World2Rec=null;
 	static public String World2RecID=null;
-	//static public AppAskforContex AskContex=null;
+	private String userName=null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -81,8 +77,9 @@ public class RecordBgService extends PlayerBgService{
 	public void RecordBgServerInint()
 	{
 		adapter=BluetoothAdapter.getDefaultAdapter();
+		userName=new appBasis().getUsername();
 		creatAudioRecord();
-		File destDir = new File(AudioPath);
+		File destDir = new File(AudioPath+userName+'/');
 	    if (!destDir.exists()) {
 	       destDir.mkdirs();
 	    } 
@@ -91,24 +88,22 @@ public class RecordBgService extends PlayerBgService{
 	    {
 	    	curFile.mkdirs();
 	    }
+	    
 	}
 	
 	private void creatAudioRecord() {
 		mAudioManager=(AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
 		if(!mAudioManager.isBluetoothScoAvailableOffCall()){
-            Log.i("设备问题:", "系统不支持蓝牙录音");
             BlueTouchOK=false;
            	}
 		else {
 			mAudioManager.startBluetoothSco();
-			Log.i("设备问题:", "系统支持蓝牙录音");
 			BlueTouchOK=true;
 			if(BluetoothProfile.STATE_CONNECTED==adapter.getProfileConnectionState(BluetoothProfile.HEADSET)) 
 				BlueTouchOK=true;
 			else
 			{
 				BlueTouchOK=false;
-				Log.i("设备问题:", "蓝牙设备未连接");
 			}
 		}
 		// 获得缓冲区字节大小
@@ -124,7 +119,6 @@ public class RecordBgService extends PlayerBgService{
 		public void run() {
 		try {
 			writeDateTOFile();//往文件中写入裸数据		
-			Log.i("线程","退出");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -132,9 +126,9 @@ public class RecordBgService extends PlayerBgService{
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void startRecord()
 	{
-		Log.i(null,"recording");
 		if(BlueTouchOK==true){
 			  getActivity().registerReceiver(new BroadcastReceiver() {
 		             @Override
@@ -147,7 +141,6 @@ public class RecordBgService extends PlayerBgService{
 		                 }else{//等待一秒后再尝试启动SCO
 		                     try {
 		                    	 Thread.sleep(500);
-		                    	 Log.i("Error", "Wait for blue");
 		                 } catch (InterruptedException e) {
 		                	 	e.printStackTrace();
 		                 }
@@ -163,7 +156,7 @@ public class RecordBgService extends PlayerBgService{
 	public void Record() {
 		Time t=new Time();
 		t.setToNow();
-		AudioSendName=AudioPath+World2RecID+"_"+t.month+t.monthDay+t.hour+t.minute+t.second+".dat";
+		AudioSendName=AudioPath+userName+'/'+World2RecID+"_"+t.month+t.monthDay+t.hour+t.minute+t.second+".dat";
 		audioRecord.startRecording();
 		// 让录制状态为true
 		isRecord = true;
@@ -173,13 +166,17 @@ public class RecordBgService extends PlayerBgService{
 
 	public void stopRecord(boolean isSave) throws Exception {
 		if (audioRecord != null) {
-			Log.i(null,"stopRecord");
 			isRecord = false;//停止文件写入
 			audioRecord.stop();
 			if(isSave){
-				Log.i("测试bug","测试bug");
 				//先复制到缓冲区
 				copyWaveFile(AudioBufferName, AudioName);//给裸数据加上头文件
+			}
+			else 
+			{
+				File file=new File(AudioBufferName);
+				if(file.exists())
+					file.delete();
 			}
 		}
 		if(BlueTouchOK==true){
@@ -192,8 +189,17 @@ public class RecordBgService extends PlayerBgService{
 	public void sendRecord() throws IOException
 	{
 		copyFile(AudioName,AudioSendName);
-		renameFile(AudioSendName,AudioSendName.replace(".dat", ".wav"));
+		if(AudioSendName!=null)
+			renameFile(AudioSendName,AudioSendName.replace(".dat", ".wav"));
 	}
+	
+	public void cleanBuffer()
+	{
+		File file=new File(AudioName);
+		if(file.exists())
+			file.delete();
+	}
+	
 	public boolean getRecordState()
 	{
 		return isRecord;
@@ -252,6 +258,10 @@ public class RecordBgService extends PlayerBgService{
 	{
 		if(!(new File(oldFile)).exists())
 			return;
+		if(newFile==null)
+			return;
+		if(!new File(newFile).exists())
+			return;
 		File file=new File(newFile);
 		FileInputStream in=new FileInputStream(oldFile);
 		FileOutputStream out=new FileOutputStream(file);
@@ -265,6 +275,8 @@ public class RecordBgService extends PlayerBgService{
 	
 	private void renameFile(String oldFile,String newFile)
 	{
+		if(oldFile==null)
+			return;
 		if(!(new File(oldFile)).exists())
 			return;
 		File oldf=new File(oldFile);

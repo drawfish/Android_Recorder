@@ -1,34 +1,27 @@
 package com.example.recordpro;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Base64;
-import android.util.Log;
 import android.util.Xml;
 
 
 public class AppAskForUpload extends UserDataClass{
 	
 	private uploadRecord uploadrecord=null;
-	private static final String AudioPath = "/sdcard/scutRec/";
-	public AppAskForUpload(String wavFileName) throws IOException
+	public AppAskForUpload(String wavFilePath,String wavFileName) throws IOException
 	{
 		FileInputStream file=new FileInputStream(wavFileName);
 		byte[] wavDataStream=new byte[file.available()];
 		file.read(wavDataStream);
-		String wavName=wavFileName.substring(AudioPath.length());
+		String wavName=wavFileName.substring(wavFilePath.length());
 		uploadrecord=new uploadRecord(wavName,wavDataStream);
 		file.close();
 	}
@@ -52,7 +45,6 @@ public class AppAskForUpload extends UserDataClass{
 			xml.text(uploadrecord.getRecordContex());
 			xml.endTag(null, "soundContex");
 			xml.startTag(null, "recordData");
-			Log.i("原始数据长度",""+uploadrecord.getRecordWavData().length);
 			xml.text(Base64.encodeToString(uploadrecord.getRecordWavData(),Base64.DEFAULT));
 			xml.endTag(null,"recordData");
 			xml.endTag(null, "appAction");
@@ -129,7 +121,7 @@ public class AppAskForUpload extends UserDataClass{
 			//Log.i("PostData",xml);
 			//Post it to the server and wait for the server;
 			HttpPostAndGet http=new HttpPostAndGet();
-			xml=http.HttpClientPOST("http://116.57.86.142/AppPost/appUpload/appUpload.php", xml.getBytes());
+			xml=http.HttpsClientPOST("https://116.57.86.142/AppPost/appUpload/appUpload.php", xml.getBytes());
 			//Log.i("收到的结果：",xml);
 			return AskResultXml2Class(xml).getUploadResult();
 		}

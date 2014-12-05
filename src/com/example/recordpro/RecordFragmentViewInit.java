@@ -1,16 +1,12 @@
 package com.example.recordpro;
 
 import java.io.IOException;
-
 import com.example.recordpro.UserDataClass.recordContex;
-
-import android.app.Fragment;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View.OnClickListener;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
@@ -49,7 +45,7 @@ public class RecordFragmentViewInit extends RecordBgService{
 		handle=new getContexHandler();
 	}
 	
-	class getContexHandler extends Handler
+	@SuppressLint("HandlerLeak") class getContexHandler extends Handler
 	{
 		@Override
 		public void handleMessage(Message msg)
@@ -59,18 +55,13 @@ public class RecordFragmentViewInit extends RecordBgService{
 			switch (what)
 			{
 				case GETCONTEXRESULT:   
-					getContexResultHandler();
+					if(!World2Rec.equals(""))
+					{
+						recContex.setText(World2Rec);
+						startRecord();
+					}
 					break;
 			}
-		}
-	}
-	
-	void getContexResultHandler()
-	{
-		if(!World2Rec.equals(""))
-		{
-			recContex.setText(World2Rec);
-			startRecord();
 		}
 	}
 	
@@ -194,7 +185,10 @@ public class RecordFragmentViewInit extends RecordBgService{
 			if(getRecordState())
 				stopRecord(false);
 			else 
+			{
 				sendRecord();
+				cleanBuffer();
+			}
 		} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

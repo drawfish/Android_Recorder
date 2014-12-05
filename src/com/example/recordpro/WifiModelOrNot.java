@@ -1,7 +1,5 @@
 package com.example.recordpro;
-import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 

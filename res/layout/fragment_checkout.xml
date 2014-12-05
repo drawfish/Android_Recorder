@@ -7,6 +7,7 @@
     android:background="@drawable/checkoutbg">
 
     <EditText
+        android:id="@+id/checkText"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
         android:inputType="text"
@@ -17,12 +18,41 @@
         android:textColor="#ffffffff"
         android:text="@string/checkoutcontext" />
 
-	<Button
+	<ImageButton
+	    android:id="@+id/checkCtrlButton"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
 	    android:layout_centerHorizontal="true"
 	    android:layout_marginBottom="30dp"
-	    android:background="@drawable/recstopplay"/>
+	    android:contentDescription="@string/app_name"
+	    android:visibility="visible"
+	    android:background="#00ffffff"
+	    android:src="@drawable/recstopplay"/>
+	<RelativeLayout
+	    android:id="@+id/checkLayout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_marginBottom="30dp"
+	    android:visibility="gone"
+	    >
+		<ImageButton
+		    android:id="@+id/checkYesButton"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:background="@drawable/checkyes"
+		    android:contentDescription="@string/app_name"
+		 	/>
+		<ImageButton 
+		    android:id="@+id/checkNoButton"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:background="@drawable/checkno"
+		    android:contentDescription="@string/app_name"	    
+		    />
+	</RelativeLayout>
 
 </RelativeLayout>

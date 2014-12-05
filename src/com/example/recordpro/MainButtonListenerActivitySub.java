@@ -1,7 +1,6 @@
 package com.example.recordpro;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -41,7 +40,6 @@ public class MainButtonListenerActivitySub extends SliderBarActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		Log.i(null,"StopService.");
 		stopService(UploadService);
 	}
 	class mainButtonListener implements OnClickListener{
@@ -58,6 +56,12 @@ public class MainButtonListenerActivitySub extends SliderBarActivity {
 				techModelButtonHandler();
 			if(v==mainQuitApp)
 				quitModelButtonHandler();
+			mainUserInfo.setEnabled(false);
+			mainRecModel.setEnabled(false);
+			mainCheckModel.setEnabled(false);
+			mainTechModel.setEnabled(false);
+			mainQuitApp.setEnabled(false);
+			mainAutoUpload.setEnabled(false);
 			sliderbarInit();
 		}
 		

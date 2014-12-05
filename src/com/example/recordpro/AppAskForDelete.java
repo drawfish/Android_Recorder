@@ -16,7 +16,7 @@ public class AppAskForDelete extends UserDataClass{
 	{
 		deleteCmd=new deleteRecord(recContext);
 	}
-	private String AppAskDelete2Xml()
+	private String AppAskClass2Xml()
 	{
 		StringWriter os = new StringWriter();
 		XmlSerializer xml=Xml.newSerializer();
@@ -42,7 +42,7 @@ public class AppAskForDelete extends UserDataClass{
 		}
 		return os.toString();	
 	}
-	private deleteResult AskDeleteXml2Class(String AskResult) throws Exception 
+	private deleteResult AskClassXml2Class(String AskResult) throws Exception 
 	{
 		InputStream is=new ByteArrayInputStream(AskResult.getBytes("utf-8"));
 		deleteResult delete_Result=null;
@@ -99,11 +99,11 @@ public class AppAskForDelete extends UserDataClass{
 		else 
 		{
 			String xml=null;
-			xml=AppAskDelete2Xml();
+			xml=AppAskClass2Xml();
 			//Post it to the server and wait for the server;
 			HttpPostAndGet http=new HttpPostAndGet();
 			xml=http.HttpsClientPOST("https://116.57.86.142/AppPost/appLogin/deleteAudio.php", xml.getBytes());
-			return AskDeleteXml2Class(xml).getRecordContex();
+			return AskClassXml2Class(xml).getRecordContex();
 		}
 	}
 }

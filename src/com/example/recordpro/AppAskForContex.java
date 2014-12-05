@@ -8,8 +8,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
 
-
-import android.util.Log;
 import android.util.Xml;
 
 public class AppAskForContex extends UserDataClass{
@@ -96,7 +94,7 @@ public class AppAskForContex extends UserDataClass{
 			xml=AppAskClass2Xml();
 			//Post it to the server and wait for the server;
 			HttpPostAndGet http=new HttpPostAndGet();
-			xml=http.HttpClientPOST("http://116.57.86.142/AppPost/appContex/appgetContex.php", xml.getBytes());
+			xml=http.HttpsClientPOST("https://116.57.86.142/AppPost/appContex/appgetContex.php", xml.getBytes());
 			return AskResultXml2Class(xml);
 		}
 	}

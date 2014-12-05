@@ -1,15 +1,10 @@
 package com.example.recordpro;
 
 import java.io.File;
-
-
-
-
-
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 public class AppUploadService extends Service{
 	private boolean isUpload=false;
@@ -17,18 +12,20 @@ public class AppUploadService extends Service{
 	private boolean uploadResult;
 	private int uploadFailCount=0;
 	private boolean isThreadRun=true;
-	private static final String AudioPath = "/sdcard/scutRec/";
+	@SuppressLint("SdCardPath") private static final String AudioPath = "/sdcard/scutRec/";
+	private String userName=null;
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
+		userName=new UserDataClass().getappBasis().getUsername();
 	}
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onStart(Intent intent, int startId) {
 		// TODO Auto-generated method stub
 		super.onStart(intent, startId);
 		new UploadTherad().start();
-		Log.i(null,"StartService!");
 	}
 	@Override
 	public void onDestroy() {
@@ -78,14 +75,13 @@ public class AppUploadService extends Service{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					Log.i(null,"Service Thread.");
 				}
 			}
 		}
 	}
 	boolean RecordFileNoEmpty()
 	{
-		File file =new File(AudioPath);
+		File file =new File(AudioPath+userName+'/');
 		if (file.exists()&&file.isDirectory())
 		{
 			if(file.list().length>0)
@@ -98,7 +94,8 @@ public class AppUploadService extends Service{
 	}
 	void UploadRecord() throws Exception
 	{
-		File rootDir=new File(AudioPath);
+		String rootPath=AudioPath+userName+'/';
+		File rootDir=new File(rootPath);
 		File[] files=rootDir.listFiles();
 		for (File file:files)
 		{
@@ -107,8 +104,7 @@ public class AppUploadService extends Service{
 				if(file.getName().contains(".wav"))
 				{
 					String wavFile=file.getAbsolutePath();
-					uploadResult=new AppAskForUpload(wavFile).getUploadResultFromServer();
-					//Log.i(null,"上传文件："+wavFile);
+					uploadResult=new AppAskForUpload(rootPath,wavFile).getUploadResultFromServer();
 					if(uploadResult)
 					{
 						file.delete();

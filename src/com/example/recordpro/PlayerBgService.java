@@ -1,6 +1,5 @@
 package com.example.recordpro;
 
-import java.io.IOException;
 
 import android.app.Fragment;
 import android.media.MediaPlayer;
@@ -8,7 +7,8 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 
 public class PlayerBgService extends Fragment{
-	MediaPlayer mediaPlayer;
+	private MediaPlayer mediaPlayer;
+	static private boolean playerState=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -37,11 +37,18 @@ public class PlayerBgService extends Fragment{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		playerState=true;
 		mediaPlayer.start();
 	}
 	public void stopPlay()
 	{
 		mediaPlayer.release();
 		mediaPlayer=null;
+		playerState=false;
+	}
+	
+	public boolean getPlayerState()
+	{
+		return playerState;
 	}
 }

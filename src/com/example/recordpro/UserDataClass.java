@@ -1,7 +1,5 @@
 package com.example.recordpro;
 
-import android.util.Log;
-
 public class UserDataClass {
 	
 	static public class appBasis{
@@ -16,7 +14,7 @@ public class UserDataClass {
 		public String getPassword(){return password;}
 		public String getAction(){return this.action;}
 	}
-	
+	public appBasis getappBasis(){return new appBasis();}
 	public class serverBasis{
 		private String username;
 		private String action;
@@ -119,13 +117,16 @@ public class UserDataClass {
 	}
 	//服务器返回纠错文件
 	//需要检测内容：action=="sendoutRecordFile" username RecordFileContex(with recorder name) RecordFile
-	public class RecordWav extends serverBasis{
+	public class RecordWavData extends serverBasis{
 		private String recordContex;
 		private byte[] recordWavFile;
-		public RecordWav(){this.recordContex="";this.recordWavFile=null;}
+		private String recordID;
+		public RecordWavData(){this.recordContex="";this.recordWavFile=null;this.recordID="";}
 		public void setRecordContex(String contex){recordContex=contex;}
+		public void setRecordContexID(String ID){this.recordID=ID;}
 		public void setRecordWavFile(byte[] file){recordWavFile=null;recordWavFile=file;}
 		public String getRecordContex(){return this.recordContex;}
+		public String getRecordContexID(){return this.recordID;}
 		public byte[] getRecordWavFile(){return this.recordWavFile;}
 	}
 	//app上传纠错结果
@@ -133,11 +134,19 @@ public class UserDataClass {
 	public class checkoutResult extends appBasis{
 		private String recordContex;
 		private Boolean checkoutResult;
-		public checkoutResult(){this.setAction("CheckoutResult");this.recordContex="";this.checkoutResult=false;}
+		private String recordContexID;
+		public checkoutResult(String recContextID,String recContext,boolean recQuality){this.setAction("CheckoutResult");this.recordContexID=recContextID;this.recordContex=recContext;this.checkoutResult=recQuality;}
 		public void setRecordContex(String contex){this.recordContex=contex;}
 		public void setCheckoutResult(Boolean result){this.checkoutResult=result;}
 		public String getRecordContex(){return this.recordContex;}
 		public Boolean getCheckoutResult(){return this.checkoutResult;}
+		public void setContexID(String ID){this.recordContexID=ID;}
+		public String getContexID(){return this.recordContexID;}
 	}
-
+	//服务器返回纠错确认结果
+	//需要检测的内容：action=“confirmResult” username confirmResult
+	public class confirmResult extends result{
+		public void setConfirmResult(boolean result){this.setResult(result);}
+		public boolean getConfirmResult(){return this.getResult();}
+	}
 }

@@ -1,15 +1,14 @@
 package com.example.recordpro;
 
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class CheckoutFragment extends Fragment {
+public class CheckFragment extends CheckFragmentViewInit {
 
-	public CheckoutFragment(){
+	public CheckFragment(){
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -23,5 +22,10 @@ public class CheckoutFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_checkout, container, false);
         return rootView;
     }
-	
+    @Override
+    public void onStart() {
+    	// TODO Auto-generated method stub
+    	super.onStart();
+    	checkViewInit();
+    }
 }
