@@ -72,7 +72,7 @@ public class CheckFragmentViewInit extends PlayerBgService{
 					else if(!Data.getAction().equals("NoRespond")&&Data.getRecordWavFile()==null)
 					{
 						checkText.setText(Data.getRecordContex());
-						checkCtrl.setImageDrawable(getResources().getDrawable(R.drawable.recstopplay));
+						checkCtrl.setVisibility(View.VISIBLE);
 					}
 					else 
 					{
@@ -80,8 +80,8 @@ public class CheckFragmentViewInit extends PlayerBgService{
 					}
 					break;
 				case GETPLAYERSTATE:
-					checkCtrl.setImageDrawable(getResources().getDrawable(R.drawable.recstopplay));
-					checkCtrl.setVisibility(View.GONE);
+					//checkCtrl.setImageDrawable(getResources().getDrawable(R.drawable.recstopplay));
+					//checkCtrl.setVisibility(View.VISIBLE);
 					checkchoose.setVisibility(View.VISIBLE);
 					break;
 			}
@@ -97,23 +97,24 @@ public class CheckFragmentViewInit extends PlayerBgService{
 			// TODO Auto-generated method stub
 			if(v==checkCtrl)
 			{
-				checkCtrl.setImageDrawable(getResources().getDrawable(R.drawable.recstartplay));
+				checkCtrl.setVisibility(View.GONE);;
 				new checkThread().start();
 			}
 			else
 			{
-				checkCtrl.setVisibility(View.VISIBLE);
 				checkchoose.setVisibility(View.GONE);
 			}
 			if(v==checkYes)
 			{
 				RecordTrueOrFalse=true;
 				new uploadResultThread().start();
+				new checkThread().start();
 			}
 			if(v==checkNo)
 			{
 				RecordTrueOrFalse=false;
 				new uploadResultThread().start();
+				new checkThread().start();
 			}
 		}	
 	}

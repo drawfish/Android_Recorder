@@ -30,12 +30,11 @@ int drawable normal_button_shape 0x7f02000a
 int drawable normal_textview_shape 0x7f02000b
 int drawable rec_button_bg 0x7f02000c
 int drawable record 0x7f02000d
-int drawable recstartplay 0x7f02000e
-int drawable recstopplay 0x7f02000f
-int drawable select_textview_shape 0x7f020010
-int drawable silde 0x7f020011
-int drawable slidebg 0x7f020012
-int drawable textview_selector 0x7f020013
+int drawable recstopplay 0x7f02000e
+int drawable select_textview_shape 0x7f02000f
+int drawable silde 0x7f020010
+int drawable slidebg 0x7f020011
+int drawable textview_selector 0x7f020012
 int id action_settings 0x7f050029
 int id cannotLogin 0x7f05000a
 int id checkCtrlButton 0x7f05001c

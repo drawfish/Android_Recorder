@@ -9,14 +9,15 @@
     <EditText
         android:id="@+id/checkText"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:inputType="text"
+        android:layout_height="300dp"
         android:layout_margin="10dp"
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:background="@null"
         android:textColor="#ffffffff"
-        android:text="@string/checkoutcontext" />
+        android:text="@string/checkoutcontext"
+        android:inputType="textMultiLine"
+        android:textSize="25dp" />
 
 	<ImageButton
 	    android:id="@+id/checkCtrlButton"
@@ -41,7 +42,7 @@
 		    android:id="@+id/checkYesButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentRight="true"
 		    android:background="@drawable/checkyes"
 		    android:contentDescription="@string/app_name"
 		 	/>
@@ -49,7 +50,7 @@
 		    android:id="@+id/checkNoButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_alignParentRight="true"
+		    android:layout_alignParentLeft="true"
 		    android:background="@drawable/checkno"
 		    android:contentDescription="@string/app_name"	    
 		    />

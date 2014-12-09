@@ -149,12 +149,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int normal_textview_shape=0x7f02000b;
         public static final int rec_button_bg=0x7f02000c;
         public static final int record=0x7f02000d;
-        public static final int recstartplay=0x7f02000e;
-        public static final int recstopplay=0x7f02000f;
-        public static final int select_textview_shape=0x7f020010;
-        public static final int silde=0x7f020011;
-        public static final int slidebg=0x7f020012;
-        public static final int textview_selector=0x7f020013;
+        public static final int recstopplay=0x7f02000e;
+        public static final int select_textview_shape=0x7f02000f;
+        public static final int silde=0x7f020010;
+        public static final int slidebg=0x7f020011;
+        public static final int textview_selector=0x7f020012;
     }
     public static final class id {
         public static final int action_settings=0x7f050029;

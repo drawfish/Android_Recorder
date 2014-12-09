@@ -1,10 +1,12 @@
 package com.example.recordpro;
 
 import java.io.File;
+
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 public class AppUploadService extends Service{
 	private boolean isUpload=false;
@@ -48,7 +50,9 @@ public class AppUploadService extends Service{
 			super.run();
 			while(isThreadRun)
 			{
-				if(RecordFileNoEmpty()&&new WifiModelOrNot(getApplicationContext()).getWifiModel()
+				if(RecordFileNoEmpty()
+						&&new WifiModelOrNot(getApplicationContext()).getWifiModel()
+						&&AutoUpload.getAutoUploadStatus()
 						&&uploadFailCount<=10)
 				{
 					if(canUpload&&!isUpload)
@@ -104,6 +108,7 @@ public class AppUploadService extends Service{
 				if(file.getName().contains(".wav"))
 				{
 					String wavFile=file.getAbsolutePath();
+					Log.i("自动上传","uploadfile"+wavFile);
 					uploadResult=new AppAskForUpload(rootPath,wavFile).getUploadResultFromServer();
 					if(uploadResult)
 					{

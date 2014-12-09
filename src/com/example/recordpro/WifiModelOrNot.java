@@ -14,6 +14,9 @@ public class WifiModelOrNot {
         {
         	return true;
         }
+        else
+        {
         	return false;
+        }
 	}
 }

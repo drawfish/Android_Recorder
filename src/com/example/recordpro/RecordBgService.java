@@ -44,8 +44,8 @@ import android.text.format.Time;
 	private String AudioName=CurrentAdioPath+"CurrentAudio.wav";
 	private String AudioSendName=null;
 	private boolean BlueTouchOK=false;
-	private BluetoothAdapter adapter;
-	private AudioRecord audioRecord;
+	private BluetoothAdapter adapter=null;
+	private AudioRecord audioRecord=null;
 	static public String World2Rec=null;
 	static public String World2RecID=null;
 	private String userName=null;
@@ -109,6 +109,8 @@ import android.text.format.Time;
 		// 获得缓冲区字节大小
 		bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz,
 				channelConfig, audioFormat);
+		if(bufferSizeInBytes<4096)
+			bufferSizeInBytes=4096;
 		// 创建AudioRecord对象
 		audioRecord = new AudioRecord(audioSource, sampleRateInHz,
 				channelConfig, audioFormat, bufferSizeInBytes);
@@ -259,8 +261,6 @@ import android.text.format.Time;
 		if(!(new File(oldFile)).exists())
 			return;
 		if(newFile==null)
-			return;
-		if(!new File(newFile).exists())
 			return;
 		File file=new File(newFile);
 		FileInputStream in=new FileInputStream(oldFile);
