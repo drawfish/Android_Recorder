@@ -52,7 +52,9 @@ public class SliderBarActivity extends MainActivityButtonEventHandler{
 		sliderbarQuitLogin.setOnClickListener(new sliderBarButtonListener());
 		sliderbarAutoUpload.setOnCheckedChangeListener(new sliderBarSwithListener());
 		wifiModel=new WifiModelOrNot(this);
-		if(wifiModel.getWifiModel())
+		if(wifiModel.getWifiModel()
+				&&AutoUpload.getAutoUploadStatus()
+				&&LoginOnlineOrNot.getLoginOnlineOrNot())
 		{
 			sliderbarAutoUpload.setChecked(true);
 			AutoUpload.setAutoUpload(true);

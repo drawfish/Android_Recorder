@@ -21,6 +21,7 @@ import android.widget.TextView;
 public class LoginActivity extends MainActivityButtonEventHandler {
 	private final int LOGINRESULT=0x01;
 	private Button loginButton=null;
+	private Button loginOutline=null;
 	private TextView forgetPwdText=null;
 	private TextView newUserText=null;
 	private EditText usernameText=null;
@@ -31,6 +32,7 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 	private String password=null;
 	private AppAskForLogin askLogin=null;
 	private CheckBox rememberMe=null;
+	private boolean loginOnline=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,6 +45,7 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 	private void init()
 	{
 		loginButton=(Button)findViewById(R.id.loginButton);
+		loginOutline=(Button)findViewById(R.id.loginOutlineButton);
 		forgetPwdText=(TextView)findViewById(R.id.cannotLogin);
 		newUserText=(TextView)findViewById(R.id.newregist);
 		usernameText=(EditText)findViewById(R.id.userName);
@@ -51,6 +54,7 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 		
 		rememberMe.setChecked(true);
 		loginButton.setOnClickListener(new loginListener());
+		loginOutline.setOnClickListener(new loginListener());
 		forgetPwdText.setOnClickListener(new loginListener());
 		newUserText.setOnClickListener(new loginListener());
 		rememberMe.setOnCheckedChangeListener(new rememberMeOnChecked());
@@ -90,24 +94,14 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 		public void onClick(View v) {
 			if(v==loginButton)
 				try {
+						loginOnline=true;
 						loginButtonHandler();
-						if(rememberMe.isChecked())
-						{
-							SharedPreferences rememberpasswd=getPreferences(Activity.MODE_PRIVATE);
-							SharedPreferences.Editor edit=rememberpasswd.edit();
-							edit.putString("username", usernameText.getText().toString());
-							edit.putString("password", passwordText.getText().toString());
-							edit.commit();
-						}
-						else 
-						{
-							SharedPreferences rememberpasswd=getPreferences(Activity.MODE_PRIVATE);
-							SharedPreferences.Editor edit=rememberpasswd.edit();
-							edit.putString("username", "");
-							edit.putString("password", "");
-							edit.commit();
-						}
 					} catch (Exception e){e.printStackTrace();}
+			if(v==loginOutline)
+			{
+				loginOnline=false;
+				loginOutlineButtonHandler();
+			}
 			if(v==forgetPwdText)
 				forgetPwdWebView();
 			if(v==newUserText)
@@ -115,7 +109,7 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 		}
 		
 	}
-	@SuppressLint("HandlerLeak") class loginHandle extends Handler
+	@SuppressLint("HandlerLeak")private class loginHandle extends Handler
 	{
 		@Override
 		public void handleMessage(Message msg)
@@ -131,13 +125,14 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 		}
 	}
 	
-	public void loginResultHandler()
+	private void loginResultHandler()
 	{
 		
 		if(loginresult==true)
 		{
 			Intent jumpToMain=new Intent();
 			jumpToMain.setClass(LoginActivity.this, MainActivity.class);
+			LoginOnlineOrNot.setLoginOnlineOrNot(loginOnline);
 			startActivity(jumpToMain);
 			finish();
 		}
@@ -150,7 +145,7 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 		}
 	}
 	
-	class loginThread extends Thread
+	private class loginThread extends Thread
 	{
 		@Override
 		public void run() {
@@ -167,7 +162,7 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 			}
 		}
 	}
-	public void loginButtonHandler() throws Exception{
+	private void loginButtonHandler() throws Exception{
 		username=usernameText.getText().toString();
 	    password=passwordText.getText().toString();
 		if(username.equals("")||password.equals(""))
@@ -178,16 +173,47 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 		else 
 		{
 			new loginThread().start();
+			//记住密码
+			if(rememberMe.isChecked())
+			{
+				SharedPreferences rememberpasswd=getPreferences(Activity.MODE_PRIVATE);
+				SharedPreferences.Editor edit=rememberpasswd.edit();
+				edit.putString("username", usernameText.getText().toString());
+				edit.putString("password", passwordText.getText().toString());
+				edit.commit();
+			}
+			else 
+			{
+				SharedPreferences rememberpasswd=getPreferences(Activity.MODE_PRIVATE);
+				SharedPreferences.Editor edit=rememberpasswd.edit();
+				edit.putString("username", "");
+				edit.putString("password", "");
+				edit.commit();
+			}
 		}
 	}
-	public void forgetPwdWebView()
+	private void loginOutlineButtonHandler()
+	{
+		username=usernameText.getText().toString();
+		if(username.equals(""))
+		{
+			new ToastShow(this, "请输入用户名。");
+			return;
+		}
+		else 
+		{
+			loginresult=true;
+			handle.sendEmptyMessage(LOGINRESULT);
+		}
+	}
+	private void forgetPwdWebView()
 	{
 		Intent jumpToWebview=new Intent();
 		jumpToWebview.setClass(LoginActivity.this, WebActivity.class);
 		jumpToWebview.putExtra("webPageUrl", "https://116.57.86.142/login/ForgetPasswd/");
 		startActivity(jumpToWebview);
 	}
-	public void registWebView()
+	private void registWebView()
 	{
 		Intent jumpToWebview=new Intent();
 		jumpToWebview.setClass(LoginActivity.this, WebActivity.class);

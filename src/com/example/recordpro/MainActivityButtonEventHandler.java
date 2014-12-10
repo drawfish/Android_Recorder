@@ -2,6 +2,7 @@ package com.example.recordpro;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 public class MainActivityButtonEventHandler extends Activity {
 	private RecordFragment recordFragment=new RecordFragment();

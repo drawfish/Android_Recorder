@@ -53,7 +53,8 @@ public class AppUploadService extends Service{
 				if(RecordFileNoEmpty()
 						&&new WifiModelOrNot(getApplicationContext()).getWifiModel()
 						&&AutoUpload.getAutoUploadStatus()
-						&&uploadFailCount<=10)
+						&&uploadFailCount<=10
+						&&LoginOnlineOrNot.getLoginOnlineOrNot())
 				{
 					if(canUpload&&!isUpload)
 					{

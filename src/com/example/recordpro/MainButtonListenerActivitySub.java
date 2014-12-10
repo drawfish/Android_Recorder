@@ -3,6 +3,7 @@ package com.example.recordpro;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class MainButtonListenerActivitySub extends SliderBarActivity {
 	private Intent UploadService=null;
 	private WifiModelOrNot wifiModel=null;
 	private RelativeLayout mainLayout=null;
+	private boolean loginOnline=false;
 	public void mainActivityButtonInit()
 	{
 		mainUserInfo=(Button)findViewById(R.id.mainuserInfo);
@@ -37,8 +39,9 @@ public class MainButtonListenerActivitySub extends SliderBarActivity {
 		mainTechModel.setOnClickListener(new mainButtonListener());
 		mainQuitApp.setOnClickListener(new mainButtonListener());
 		mainAutoUpload.setOnCheckedChangeListener(new mainSwithListener());
+		loginOnline=LoginOnlineOrNot.getLoginOnlineOrNot();
 		wifiModel=new WifiModelOrNot(this);
-		if(wifiModel.getWifiModel())
+		if(wifiModel.getWifiModel()&&loginOnline)
 		{
 			mainAutoUpload.setChecked(true);
 			AutoUpload.setAutoUpload(true);
@@ -49,13 +52,15 @@ public class MainButtonListenerActivitySub extends SliderBarActivity {
 			AutoUpload.setAutoUpload(false);
 		}
 		UploadService=new Intent(this,AppUploadService.class);
-		startService(UploadService);
+		if(loginOnline)
+			startService(UploadService);
 	}
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		stopService(UploadService);
+		if(loginOnline)
+			stopService(UploadService);
 	}
 	class mainButtonListener implements OnClickListener{
 		@Override
@@ -64,19 +69,21 @@ public class MainButtonListenerActivitySub extends SliderBarActivity {
 			if(v==mainUserInfo)
 				userInfoButtonHandler();
 			if(v==mainRecModel)
+			{
 				recModelButtonHandler();
+			}
 			if(v==mainCheckModel)
 				checkModelButtonHandler();
 			if(v==mainTechModel)
 				techModelButtonHandler();
 			if(v==mainQuitApp)
 				quitModelButtonHandler();
-			mainUserInfo.setEnabled(false);
-			mainRecModel.setEnabled(false);
-			mainCheckModel.setEnabled(false);
-			mainTechModel.setEnabled(false);
-			mainQuitApp.setEnabled(false);
-			mainAutoUpload.setEnabled(false);
+			mainUserInfo.setVisibility(View.GONE);
+			mainRecModel.setVisibility(View.GONE);
+			mainCheckModel.setVisibility(View.GONE);
+			mainTechModel.setVisibility(View.GONE);
+			mainQuitApp.setVisibility(View.GONE);
+			mainAutoUpload.setVisibility(View.GONE);
 			sliderbarInit();
 			mainLayout.setBackgroundColor(0xff000000);
 		}

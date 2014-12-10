@@ -31,7 +31,8 @@ public class CheckFragmentViewInit extends PlayerBgService{
 	private PlayerBgService player=null;
 	private boolean RecordTrueOrFalse=false;
 	private confirmResult confirm=null;
-	
+	private boolean replay=false;
+	private boolean loginOnline=false;
 	@SuppressLint("SdCardPath") private static final String CheckFilePath = "/sdcard/scutRec/checkFile";
 	
 	public void checkViewInit()
@@ -45,6 +46,9 @@ public class CheckFragmentViewInit extends PlayerBgService{
 		checkYes.setOnClickListener(new checkButtonListener());
 		checkNo.setOnClickListener(new checkButtonListener());
 		
+		loginOnline=LoginOnlineOrNot.getLoginOnlineOrNot();
+		if(!loginOnline)
+			checkText.setText("当前离线状态不允许使用该模式。");
 		checkMessageHandle=new getContexHandler();
 		player=new PlayerBgService();
 		File file=new File(CheckFilePath);
@@ -95,26 +99,34 @@ public class CheckFragmentViewInit extends PlayerBgService{
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(v==checkCtrl)
+			if(loginOnline)
 			{
-				checkCtrl.setVisibility(View.GONE);;
-				new checkThread().start();
-			}
-			else
-			{
-				checkchoose.setVisibility(View.GONE);
-			}
-			if(v==checkYes)
-			{
-				RecordTrueOrFalse=true;
-				new uploadResultThread().start();
-				new checkThread().start();
-			}
-			if(v==checkNo)
-			{
-				RecordTrueOrFalse=false;
-				new uploadResultThread().start();
-				new checkThread().start();
+				checkCtrl.setVisibility(View.GONE);
+				if(v==checkCtrl)
+				{
+					if(!replay)
+						new checkThread().start();
+					else 
+					{
+						checkMessageHandle.sendEmptyMessage(GETDATARESULT);
+					}
+				}
+				else
+				{
+					checkchoose.setVisibility(View.GONE);
+				}
+				if(v==checkYes)
+				{
+					RecordTrueOrFalse=true;
+					new uploadResultThread().start();
+					new checkThread().start();
+				}
+				if(v==checkNo)
+				{
+					RecordTrueOrFalse=false;
+					new uploadResultThread().start();
+					new checkThread().start();
+				}
 			}
 		}	
 	}
@@ -129,7 +141,10 @@ public class CheckFragmentViewInit extends PlayerBgService{
 			try {
 				Data=new AppAskForCheck().getRecordFromServer();
 				if(!Data.getAction().equals("NoRespond")&&Data.getRecordWavFile()!=null)
+				{
 					FileSave(Data.getRecordWavFile());
+					replay=true;
+				}
 				checkMessageHandle.sendEmptyMessage(GETDATARESULT);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
