@@ -1,7 +1,9 @@
 package com.example.recordpro;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +12,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 //µÇÂ¼
@@ -25,7 +30,7 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 	private String username=null;
 	private String password=null;
 	private AppAskForLogin askLogin=null;
-	
+	private CheckBox rememberMe=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,19 +47,67 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 		newUserText=(TextView)findViewById(R.id.newregist);
 		usernameText=(EditText)findViewById(R.id.userName);
 		passwordText=(EditText)findViewById(R.id.passwd);
+		rememberMe=(CheckBox)findViewById(R.id.remeberpasswd);
 		
+		rememberMe.setChecked(true);
 		loginButton.setOnClickListener(new loginListener());
 		forgetPwdText.setOnClickListener(new loginListener());
 		newUserText.setOnClickListener(new loginListener());
+		rememberMe.setOnCheckedChangeListener(new rememberMeOnChecked());
 		handle=new loginHandle();
+		SharedPreferences remember=getPreferences(Activity.MODE_PRIVATE);
+		usernameText.setText(remember.getString("username", ""));
+		passwordText.setText(remember.getString("password", ""));
 	}
-	class loginListener implements OnClickListener
+	
+	private class rememberMeOnChecked implements OnCheckedChangeListener{
+		
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			// TODO Auto-generated method stub
+			if(isChecked)
+			{
+				SharedPreferences rememberPass=getPreferences(Activity.MODE_PRIVATE);
+				SharedPreferences.Editor edit=rememberPass.edit();
+				edit.putString("username", usernameText.getText().toString());
+				edit.putString("password", passwordText.getText().toString());
+				edit.commit();
+			}
+			else 
+			{
+				SharedPreferences rememberPass=getPreferences(Activity.MODE_PRIVATE);
+				SharedPreferences.Editor edit=rememberPass.edit();
+				edit.putString("username", "");
+				edit.putString("password", "");
+				edit.commit();
+			}
+		}
+	}
+	private class loginListener implements OnClickListener
 	{
 
 		@Override
 		public void onClick(View v) {
 			if(v==loginButton)
-				try {loginButtonHandler();} catch (Exception e){}
+				try {
+						loginButtonHandler();
+						if(rememberMe.isChecked())
+						{
+							SharedPreferences rememberpasswd=getPreferences(Activity.MODE_PRIVATE);
+							SharedPreferences.Editor edit=rememberpasswd.edit();
+							edit.putString("username", usernameText.getText().toString());
+							edit.putString("password", passwordText.getText().toString());
+							edit.commit();
+						}
+						else 
+						{
+							SharedPreferences rememberpasswd=getPreferences(Activity.MODE_PRIVATE);
+							SharedPreferences.Editor edit=rememberpasswd.edit();
+							edit.putString("username", "");
+							edit.putString("password", "");
+							edit.commit();
+						}
+					} catch (Exception e){e.printStackTrace();}
 			if(v==forgetPwdText)
 				forgetPwdWebView();
 			if(v==newUserText)

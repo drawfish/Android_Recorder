@@ -41,7 +41,7 @@ public class RecordFragmentViewInit extends RecordBgService{
 		recJumpOutButton.setEnabled(false);
 		recReplayButton.setEnabled(false);
 		recDeleteButton.setEnabled(false);
-		RecordBgServerInint();
+		
 		handle=new getContexHandler();
 	}
 	

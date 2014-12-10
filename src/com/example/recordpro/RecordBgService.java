@@ -7,6 +7,9 @@ import java.io.IOException;
 
 
 
+
+
+
 import com.example.recordpro.UserDataClass.appBasis;
 
 import android.annotation.SuppressLint;
@@ -20,8 +23,11 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.media.MediaRecorder.AudioSource;
 import android.os.Bundle;
+import android.provider.MediaStore.Audio.Media;
 import android.text.format.Time;
+import android.util.Log;
 
 @SuppressLint("SdCardPath") public class RecordBgService extends PlayerBgService{
 	// 音频获取源
@@ -51,10 +57,15 @@ import android.text.format.Time;
 	private String userName=null;
 	
 	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		RecordBgServerInint();
+	}
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		RecordBgServerInint();
 	}
 	
 	@Override
@@ -74,7 +85,7 @@ import android.text.format.Time;
 			file.delete();
 	}
 	
-	public void RecordBgServerInint()
+	private void RecordBgServerInint()
 	{
 		adapter=BluetoothAdapter.getDefaultAdapter();
 		userName=new appBasis().getUsername();
@@ -107,10 +118,7 @@ import android.text.format.Time;
 			}
 		}
 		// 获得缓冲区字节大小
-		bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz,
-				channelConfig, audioFormat);
-		if(bufferSizeInBytes<4096)
-			bufferSizeInBytes=4096;
+		bufferSizeInBytes =AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
 		// 创建AudioRecord对象
 		audioRecord = new AudioRecord(audioSource, sampleRateInHz,
 				channelConfig, audioFormat, bufferSizeInBytes);

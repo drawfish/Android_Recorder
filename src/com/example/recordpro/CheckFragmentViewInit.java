@@ -81,7 +81,7 @@ public class CheckFragmentViewInit extends PlayerBgService{
 					break;
 				case GETPLAYERSTATE:
 					//checkCtrl.setImageDrawable(getResources().getDrawable(R.drawable.recstopplay));
-					//checkCtrl.setVisibility(View.VISIBLE);
+					checkCtrl.setVisibility(View.VISIBLE);
 					checkchoose.setVisibility(View.VISIBLE);
 					break;
 			}

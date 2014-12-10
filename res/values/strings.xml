@@ -31,5 +31,5 @@
     <string name="userOutlinelogin">离线登录</string>
     <string name="title_activity_web">WebActivity</string>
 	<string name="quit">退出登录</string>
-    
+    <string name="remberpass">记住密码？</string>
 </resources>
