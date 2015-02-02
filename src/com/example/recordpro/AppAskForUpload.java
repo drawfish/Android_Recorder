@@ -121,7 +121,7 @@ public class AppAskForUpload extends UserDataClass{
 			//Log.i("PostData",xml);
 			//Post it to the server and wait for the server;
 			HttpPostAndGet http=new HttpPostAndGet();
-			xml=http.HttpsClientPOST("https://116.57.86.142/AppPost/appUpload/appUpload.php", xml.getBytes());
+			xml=http.HttpClientPOST("http://125.217.245.125:10080/AppPost/appUpload/appUpload.php", xml.getBytes());
 			//Log.i("收到的结果：",xml);
 			return AskResultXml2Class(xml).getUploadResult();
 		}

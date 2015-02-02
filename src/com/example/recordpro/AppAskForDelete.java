@@ -102,7 +102,7 @@ public class AppAskForDelete extends UserDataClass{
 			xml=AppAskClass2Xml();
 			//Post it to the server and wait for the server;
 			HttpPostAndGet http=new HttpPostAndGet();
-			xml=http.HttpsClientPOST("https://116.57.86.142/AppPost/appLogin/deleteAudio.php", xml.getBytes());
+			xml=http.HttpClientPOST("http://125.217.245.125:10080/AppPost/appLogin/deleteAudio.php", xml.getBytes());
 			return AskClassXml2Class(xml).getRecordContex();
 		}
 	}

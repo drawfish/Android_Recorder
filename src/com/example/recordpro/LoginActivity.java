@@ -210,14 +210,14 @@ public class LoginActivity extends MainActivityButtonEventHandler {
 	{
 		Intent jumpToWebview=new Intent();
 		jumpToWebview.setClass(LoginActivity.this, WebActivity.class);
-		jumpToWebview.putExtra("webPageUrl", "https://116.57.86.142/login/ForgetPasswd/");
+		jumpToWebview.putExtra("webPageUrl", "http://125.217.245.125:10080/login/ForgetPasswd/");
 		startActivity(jumpToWebview);
 	}
 	private void registWebView()
 	{
 		Intent jumpToWebview=new Intent();
 		jumpToWebview.setClass(LoginActivity.this, WebActivity.class);
-		jumpToWebview.putExtra("webPageUrl", "https://116.57.86.142/login/regist/");
+		jumpToWebview.putExtra("webPageUrl", "http://125.217.245.125:10080/login/regist/");
 		startActivity(jumpToWebview);
 	}
 }

@@ -104,7 +104,7 @@ public class AppAskForResult extends UserDataClass{
 			xml=AppAskClass2Xml();
 			//Post it to the server and wait for the server;
 			HttpPostAndGet http=new HttpPostAndGet();
-			xml=http.HttpsClientPOST("https://116.57.86.142/AppPost/appCheck/appResult.php", xml.getBytes());
+			xml=http.HttpClientPOST("http://125.217.245.125:10080/AppPost/appCheck/appResult.php", xml.getBytes());
 			return AskXml2Class(xml);
 		}
 	}

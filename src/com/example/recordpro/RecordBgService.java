@@ -248,7 +248,7 @@ import android.util.Log;
 		byte[] data = new byte[bufferSizeInBytes];
 		in = new FileInputStream(inFilename);
 		out = new FileOutputStream(outFilename);
-		totalAudioLen = in.getChannel().size();
+		totalAudioLen = in.available();
 		totalDataLen = totalAudioLen + 36;
 		WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
 				longSampleRate, channels, byteRate);
@@ -256,8 +256,10 @@ import android.util.Log;
 			out.write(data);
 		}
 		out.flush();
+		Log.i("输入长度：",""+in.getChannel().size());
 		in.close();
 		out.close();
+		Log.i("输出长度：",""+new File(outFilename).length());
 		File file = new File(AudioBufferName);
 		if (file.exists()) {
 			file.delete();
@@ -273,8 +275,8 @@ import android.util.Log;
 		File file=new File(newFile);
 		FileInputStream in=new FileInputStream(oldFile);
 		FileOutputStream out=new FileOutputStream(file);
-		byte[] buffer=new byte[1024];
-		while(in.read(buffer)>0)
+		byte[] buffer=new byte[in.available()];
+		while(in.read(buffer)!=-1)
 			out.write(buffer);
 		out.flush();
 		in.close();
