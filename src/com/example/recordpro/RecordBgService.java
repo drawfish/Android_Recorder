@@ -228,7 +228,7 @@ import android.util.Log;
 		while (isRecord == true) {
 			readsize = audioRecord.read(audiodata, 0, bufferSizeInBytes);
 			if (AudioRecord.ERROR_INVALID_OPERATION != readsize) {
-					fos.write(audiodata);					
+					fos.write(audiodata,0,readsize);					
 			}
 		}
 		fos.flush();
@@ -252,8 +252,9 @@ import android.util.Log;
 		totalDataLen = totalAudioLen + 36;
 		WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
 				longSampleRate, channels, byteRate);
-		while (in.read(data) != -1) {
-			out.write(data);
+		int datalen=0;
+		while ((datalen=in.read(data) )!= -1) {
+			out.write(data,0,datalen);
 		}
 		out.flush();
 		Log.i(" ‰»Î≥§∂»£∫",""+in.getChannel().size());
@@ -276,8 +277,9 @@ import android.util.Log;
 		FileInputStream in=new FileInputStream(oldFile);
 		FileOutputStream out=new FileOutputStream(file);
 		byte[] buffer=new byte[in.available()];
-		while(in.read(buffer)!=-1)
-			out.write(buffer);
+		int datalen=0;
+		while((datalen=in.read(buffer))!=-1)
+			out.write(buffer,0,datalen);
 		out.flush();
 		in.close();
 		out.close();
